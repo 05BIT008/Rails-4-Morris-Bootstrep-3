@@ -1,0 +1,187 @@
+    <div class="content">
+
+
+        <div id="pad-wrapper">
+            <!-- morris stacked chart -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="title">Morris.js stacked</h4>
+                </div>
+                <div class="col-md-12">
+                    <h5>Quarterly Apple iOS device unit sales</h5>
+                    <br>
+                    <div id="hero-area" style="height: 250px;"></div>
+                </div>
+            </div>
+
+            <!-- morris graph chart -->
+            <div class="row section">
+                <div class="col-md-12">
+                    <h4 class="title">Morris.js <small>Monthly growth</small></h4>
+                </div>
+                <div class="col-md-12 chart">                        
+                    <div id="hero-graph" style="height: 230px;"></div>
+                </div>
+            </div>
+
+            <!-- jQuery flot chart -->
+            <div class="row section">
+                <div class="col-md-12">
+                    <h4 class="title pull-left">
+                        Morris.Js <small>Value Goal</small>                        
+                    </h4>
+                </div>
+                <div class="span12">
+                    <div id="statsChart"></div>
+                </div>
+            </div>
+
+            <!-- morris bar & donut charts -->
+            <div class="row section">
+                <div class="col-md-12">
+                    <h4 class="title">Morris.js</h4>
+                </div>
+                <div class="col-md-6 chart">
+                    <h5>Devices sold</h5>
+                    <div id="hero-bar" style="height: 250px;"></div>
+                </div>
+                <div class="col-md-5 chart">
+                    <h5>Month traffic</h5>
+                    <div id="hero-donut" style="height: 250px;"></div>    
+                </div>
+            </div>
+
+            <!-- jQuery knobs -->
+            <div class="row section">
+                <div class="col-md-12">
+                    <h4 class="title pull-left">
+                        Morris.Js <small>Value Goal</small>                        
+                    </h4>
+                </div>
+                <div class="span12">
+                    <div id="graph"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- end main container -->
+    <script type="text/javascript">
+      var day_data = [
+          {"period": "2013-10-01", "licensed": 3407, "sorned": 1660},
+          {"period": "2013-09-30", "licensed": 3351, "sorned": 2629},
+          {"period": "2013-09-29", "licensed": 3269, "sorned": 2618},
+          {"period": "2013-09-20", "licensed": 3246, "sorned": 1661},
+          {"period": "2013-09-19", "licensed": 3257, "sorned": 667},
+          {"period": "2013-09-18", "licensed": 3248, "sorned": 1627},
+          {"period": "2013-09-17", "licensed": 3171, "sorned": 1660},
+          {"period": "2013-09-16", "licensed": 3171, "sorned": 1676},
+          {"period": "2013-09-15", "licensed": 3201, "sorned": 1656},
+          {"period": "2013-09-10", "licensed": 3215, "sorned": 1622}
+      ];
+      Morris.Bar({
+        element: 'graph',
+        data: day_data,
+        xkey: 'period',
+        ykeys: ['licensed', 'sorned'],
+        labels: ['Licensed', 'SORN'],
+        });
+
+//Morris.js value Goal
+      var decimal_data = [];
+      for (var x = 0; x <= 360; x += 10) {
+        decimal_data.push({
+                        x: x,
+                        y: Math.sin(Math.PI * x / 180).toFixed(4)
+                        });
+                      }
+        window.m = Morris.Line({
+                    element: 'statsChart',
+                    data: decimal_data,
+                    xkey: 'x',
+                    ykeys: ['y'],
+                    labels: ['sin(x)'],
+                    parseTime: false,
+                    goals: [-1, 0, 1]
+                  });
+
+// Morris Bar Chart
+Morris.Bar({
+element: 'hero-bar',
+            data: [
+                {device: '1', sells: 136},
+                {device: '3G', sells: 1037},
+                {device: '3GS', sells: 275},
+                {device: '4', sells: 380},
+                {device: '4S', sells: 655},
+                {device: '5', sells: 1571}
+            ],
+            xkey: 'device',
+            ykeys: ['sells'],
+            labels: ['Sells'],
+            barRatio: 0.4,
+            xLabelMargin: 10,
+            hideHover: 'auto',
+            barColors: ["#3d88ba"]
+        });
+
+
+        // Morris Donut Chart
+        Morris.Donut({
+            element: 'hero-donut',
+            data: [
+                {label: 'Direct', value: 25 },
+                {label: 'Referrals', value: 40 },
+                {label: 'Search engines', value: 25 },
+                {label: 'Unique visitors', value: 10 }
+            ],
+            colors: ["#30a1ec", "#76bdee", "#c4dafe"],
+            formatter: function (y) { return y + "%" }
+        });
+
+
+        // Morris Line Chart
+        var tax_data = [
+            {"period": "2013-04", "visits": 2407, "signups": 660},
+            {"period": "2013-03", "visits": 3351, "signups": 729},
+            {"period": "2013-02", "visits": 2469, "signups": 1318},
+            {"period": "2013-01", "visits": 2246, "signups": 461},
+            {"period": "2012-12", "visits": 3171, "signups": 1676},
+            {"period": "2012-11", "visits": 2155, "signups": 681},
+            {"period": "2012-10", "visits": 1226, "signups": 620},
+            {"period": "2012-09", "visits": 2245, "signups": 500}
+        ];
+        Morris.Line({
+            element: 'hero-graph',
+            data: tax_data,
+            xkey: 'period',
+            xLabels: "month",
+            ykeys: ['visits', 'signups'],
+            labels: ['Visits', 'User signups']
+        });
+
+
+
+        // Morris Area Chart
+        Morris.Area({
+            element: 'hero-area',
+            data: [
+                {period: '2010 Q1', iphone: 2666, ipad: null, itouch: 2647},
+                {period: '2010 Q2', iphone: 2778, ipad: 2294, itouch: 2441},
+                {period: '2010 Q3', iphone: 4912, ipad: 1969, itouch: 2501},
+                {period: '2010 Q4', iphone: 3767, ipad: 3597, itouch: 5689},
+                {period: '2011 Q1', iphone: 6810, ipad: 1914, itouch: 2293},
+                {period: '2011 Q2', iphone: 5670, ipad: 4293, itouch: 1881},
+                {period: '2011 Q3', iphone: 4820, ipad: 3795, itouch: 1588},
+                {period: '2011 Q4', iphone: 15073, ipad: 5967, itouch: 5175},
+                {period: '2012 Q1', iphone: 10687, ipad: 4460, itouch: 2028},
+                {period: '2012 Q2', iphone: 8432, ipad: 5713, itouch: 1791}
+            ],
+            xkey: 'period',
+            ykeys: ['iphone', 'ipad', 'itouch'],
+            labels: ['iPhone', 'iPad', 'iPod Touch'],
+            lineWidth: 2,
+            hideHover: 'auto',
+            lineColors: ["#81d5d9", "#a6e182", "#67bdf8"]
+          });
+        </script>
