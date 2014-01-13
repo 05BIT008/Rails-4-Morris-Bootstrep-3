@@ -16,6 +16,7 @@ gem 'simple_form'
 gem 'will_paginate'
 gem 'protected_attributes'
 gem 'rails_12factor'
+#gem "font-awesome-rails"
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
